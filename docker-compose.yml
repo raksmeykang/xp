@@ -3,18 +3,18 @@ services:
     image: dockurr/windows
     container_name: windows-xp
     environment:
-      VERSION: "xp"
-      CPU_CORES: "2"
-      RAM_SIZE: "2G"
-      DISK_SIZE: "32G"
-      USERNAME: "Docker"
-      PASSWORD: "admin"
-      LANGUAGE: "English"
-      WIDTH: "1280"
-      HEIGHT: "720"
-      AUDIO: "Y"
-      DISPLAY: "web"
-      BOOT_MODE: "windows_legacy"
+      VERSION: ${VERSION}
+      CPU_CORES: ${CPU_CORES}
+      RAM_SIZE: ${RAM_SIZE}
+      DISK_SIZE: ${DISK_SIZE}
+      USERNAME: ${USERNAME}
+      PASSWORD: ${PASSWORD}
+      LANGUAGE: ${LANGUAGE}
+      WIDTH: ${WIDTH}
+      HEIGHT: ${HEIGHT}
+      AUDIO: ${AUDIO}
+      DISPLAY: ${DISPLAY}
+      BOOT_MODE: ${BOOT_MODE}
     devices:
       - /dev/kvm
       - /dev/net/tun
