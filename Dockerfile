@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone --depth 1 --branch v1.5.0 https://github.com/novnc/noVNC.git /opt/noVNC && \
+RUN git clone --depth 1 --branch v1.6.0 https://github.com/novnc/noVNC.git /opt/noVNC && \
     git clone --depth 1 --branch v0.12.0 https://github.com/novnc/websockify.git /opt/noVNC/utils/websockify && \
     sed -i 's/"autoconnect": false/"autoconnect": true/' /opt/noVNC/defaults.json && \
     cp /opt/noVNC/vnc.html /opt/noVNC/index.html
