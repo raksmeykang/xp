@@ -15,11 +15,7 @@ services:
       AUDIO: ${AUDIO}
       DISPLAY: ${DISPLAY}
       BOOT_MODE: ${BOOT_MODE}
-    devices:
-      - /dev/kvm
-      - /dev/net/tun
-    cap_add:
-      - NET_ADMIN
+      KVM: "N"
     ports:
       - "8006:8006"
     volumes:
