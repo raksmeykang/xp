@@ -6,17 +6,9 @@ ENV DEBCONF_NONINTERACTIVE_SEEN=true
 RUN apt-get update && apt-get install -y \
     qemu-system-x86 \
     qemu-utils \
-    wget \
-    curl \
     supervisor \
     novnc \
     websockify \
-    tightvncserver \
-    ratpoison \
-    pulseaudio \
-    xvfb \
-    x11-utils \
-    xorg \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
@@ -30,4 +22,4 @@ RUN chmod +x /opt/start.sh
 
 EXPOSE 8006
 
-CMD ["/opt/start.sh"]
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
