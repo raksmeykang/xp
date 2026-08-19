@@ -5,6 +5,9 @@ DISK="/storage/disk.qcow2"
 ISO="/storage/xp.iso"
 RAM="${RAM_SIZE:-512}"
 CPU="${CPU_CORES:-1}"
+RES="${RESOLUTION:-1024x768}"
+WIDTH="${RES%%x*}"
+HEIGHT="${RES##*x}"
 
 echo "=== Windows XP on ARM64 (QEMU x86 emulation) ==="
 
@@ -33,13 +36,13 @@ exec qemu-system-i386 \
     -cpu pentium3,+sse \
     -smp ${CPU} \
     -m ${RAM} \
-    -drive file="$DISK",format=qcow2,if=virtio,cache=none,discard=unmap,aio=native \
+    -hda "$DISK" \
     -cdrom "$ISO" \
     -boot d \
-    -vga virtio \
+    -vga std \
     -display none \
     -vnc :0 \
-    -device virtio-net-pci,netdev=net0 \
+    -device e1000,netdev=net0 \
     -netdev user,id=net0,hostfwd=tcp::3389-:3389 \
     -usb \
     -device usb-tablet \

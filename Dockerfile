@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN git clone --depth 1 https://github.com/novnc/noVNC.git /opt/noVNC && \
     git clone --depth 1 https://github.com/novnc/websockify.git /opt/noVNC/utils/websockify && \
-    ln -s /opt/noVNC/vnc_auto.html /opt/noVNC/index.html
+    sed -i 's/"autoconnect": false/"autoconnect": true/' /opt/noVNC/defaults.json && \
+    cp /opt/noVNC/vnc.html /opt/noVNC/index.html
 
 WORKDIR /opt
 
