@@ -26,13 +26,13 @@ if [ ! -f "$DISK" ]; then
     qemu-img create -f qcow2 "$DISK" "${DISK_SIZE:-16G}"
 fi
 
-# Decide boot order: empty disk → boot CD, disk with data → boot HDD
+# Decide boot order: disk needs >1.5GB to be a valid XP install
 DISK_FILE_SIZE=$(stat -c%s "$DISK" 2>/dev/null || echo 0)
-if [ "$DISK_FILE_SIZE" -lt 10000000 ]; then
-    echo "Disk empty — booting from CD to install XP..."
+if [ "$DISK_FILE_SIZE" -lt 1500000000 ]; then
+    echo "Disk empty or incomplete — booting from CD to install XP..."
     BOOT="-boot d"
 else
-    echo "Disk has data — booting from HDD..."
+    echo "Disk has valid install — booting from HDD..."
     BOOT="-boot c"
 fi
 
