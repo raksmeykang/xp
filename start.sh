@@ -2,13 +2,23 @@
 set -e
 
 DISK="/storage/disk.qcow2"
-ISO="/opt/xp.iso"
+ISO="/storage/xp.iso"
 RAM="${RAM_SIZE:-512}"
 CPU="${CPU_CORES:-1}"
 
 echo "=== Windows XP on ARM64 (QEMU x86 emulation) ==="
 
 mkdir -p /storage
+
+# Download XP ISO only if not already cached
+if [ ! -f "$ISO" ]; then
+    echo "Downloading Windows XP ISO (one-time)..."
+    wget -q --show-progress -O "$ISO" \
+        "https://archive.org/download/WinXPProSP3x86/en_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-73974.iso"
+    echo "ISO cached at $ISO"
+else
+    echo "Using cached ISO: $ISO"
+fi
 
 # Create disk if not exists
 if [ ! -f "$DISK" ]; then
