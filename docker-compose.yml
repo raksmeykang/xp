@@ -1,0 +1,31 @@
+services:
+  windows-xp:
+    image: dockurr/windows
+    container_name: windows-xp
+    environment:
+      VERSION: "xp"
+      CPU_CORES: "2"
+      RAM_SIZE: "2G"
+      DISK_SIZE: "32G"
+      USERNAME: "Docker"
+      PASSWORD: "admin"
+      LANGUAGE: "English"
+      WIDTH: "1280"
+      HEIGHT: "720"
+      AUDIO: "Y"
+      DISPLAY: "web"
+      BOOT_MODE: "windows_legacy"
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "8006:8006"
+    volumes:
+      - ./data:/storage
+    restart: always
+    stop_grace_period: 2m
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.windows-xp.loadbalancer.server.port=8006"
