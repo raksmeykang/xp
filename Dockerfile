@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN git clone --depth 1 https://github.com/novnc/noVNC.git /opt/noVNC && \
-    git clone --depth 1 https://github.com/novnc/websockify.git /opt/noVNC/utils/websockify
+    git clone --depth 1 https://github.com/novnc/websockify.git /opt/noVNC/utils/websockify && \
+    ln -s /opt/noVNC/vnc_auto.html /opt/noVNC/index.html
 
 WORKDIR /opt
 
