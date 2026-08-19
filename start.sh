@@ -35,7 +35,7 @@ exec qemu-system-i386 \
     -m ${RAM} \
     -hda "$DISK" \
     -cdrom "$ISO" \
-    -boot d \
+    -boot once d \
     -vga std \
     -display none \
     -vnc :0 \
