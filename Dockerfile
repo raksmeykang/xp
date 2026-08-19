@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
     websockify \
     tightvncserver \
     ratpoison \
-    nginx \
     pulseaudio \
     xvfb \
     x11-utils \
@@ -24,7 +23,6 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt
 
-COPY nginx.conf /etc/nginx/nginx.conf
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY start.sh /opt/start.sh
 RUN chmod +x /opt/start.sh

@@ -5,7 +5,6 @@ DISK="/storage/disk.qcow2"
 ISO="/opt/xp.iso"
 RAM="${RAM_SIZE:-512}"
 CPU="${CPU_CORES:-1}"
-RESOLUTION="${RESOLUTION:-1024x768}"
 
 echo "=== Windows XP on ARM64 (QEMU x86 emulation) ==="
 
@@ -23,13 +22,9 @@ if [ ! -f "$DISK" ]; then
     qemu-img create -f qcow2 "$DISK" "${DISK_SIZE:-16G}"
 fi
 
-# Start VNC server
-Xvfb :0 -screen 0 ${RESOLUTION}x24 &
-sleep 1
-
 # Start QEMU
 echo "Starting QEMU x86 emulation..."
-qemu-system-i386 \
+exec qemu-system-i386 \
     -accel tcg,tb-size=512,multidec=on \
     -cpu pentium3,+sse \
     -smp ${CPU} \
@@ -45,18 +40,4 @@ qemu-system-i386 \
     -netdev user,id=net0,hostfwd=tcp::3389-:3389 \
     -usb \
     -device usb-tablet \
-    -name "Windows XP" &
-
-QEMU_PID=$!
-
-# Start VNC to WebSocket bridge
-x11vnc -display :0 -forever -nopw -shared -rfbport 5900 &
-sleep 1
-
-websockify --web=/usr/share/novnc 6080 localhost:5900 &
-
-# Start nginx
-nginx -g "daemon off;" &
-
-echo "=== Access Windows XP at http://localhost:8006 ==="
-wait $QEMU_PID
+    -name "Windows XP"
