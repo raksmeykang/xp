@@ -39,8 +39,6 @@ exec qemu-system-i386 \
     -vga std \
     -display none \
     -vnc :0 \
-    -soundhw ac97 \
-    -audiodev pa,id=audio0 \
     -device e1000,netdev=net0 \
     -netdev user,id=net0,hostfwd=tcp::3389-:3389 \
     -usb \

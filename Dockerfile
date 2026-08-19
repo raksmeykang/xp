@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y \
     python3-numpy \
     wget \
     git \
-    pulseaudio \
     && rm -rf /var/lib/apt/lists/*
 
 RUN git clone --depth 1 --branch v1.4.0 https://github.com/novnc/noVNC.git /opt/noVNC && \
