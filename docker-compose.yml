@@ -1,23 +1,15 @@
 services:
   windows-xp:
-    image: dockurr/windows
+    build: .
     container_name: windows-xp
     environment:
-      VERSION: ${VERSION}
-      CPU_CORES: ${CPU_CORES}
-      RAM_SIZE: ${RAM_SIZE}
-      DISK_SIZE: ${DISK_SIZE}
-      USERNAME: ${USERNAME}
-      PASSWORD: ${PASSWORD}
-      LANGUAGE: ${LANGUAGE}
-      WIDTH: ${WIDTH}
-      HEIGHT: ${HEIGHT}
-      AUDIO: ${AUDIO}
-      DISPLAY: ${DISPLAY}
-      BOOT_MODE: ${BOOT_MODE}
-      KVM: "N"
+      RAM_SIZE: ${RAM_SIZE:-512}
+      CPU_CORES: ${CPU_CORES:-1}
+      DISK_SIZE: ${DISK_SIZE:-16G}
+      RESOLUTION: ${RESOLUTION:-1024x768}
     ports:
       - "8006:8006"
+      - "3389:3389"
     volumes:
       - ./data:/storage
     restart: always
