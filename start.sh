@@ -5,6 +5,9 @@ DISK="/storage/disk.qcow2"
 ISO="/storage/xp.iso"
 RAM="${RAM_SIZE:-512}"
 CPU="${CPU_CORES:-1}"
+RES="${RESOLUTION:-1024x768}"
+WIDTH="${RES%%x*}"
+HEIGHT="${RES##*x}"
 
 echo "=== Windows XP on ARM64 (QEMU x86 emulation) ==="
 
@@ -27,7 +30,7 @@ if [ ! -f "$DISK" ]; then
 fi
 
 # Start QEMU
-echo "Starting QEMU x86 emulation..."
+echo "Starting QEMU x86 emulation (${WIDTH}x${HEIGHT})..."
 exec qemu-system-i386 \
     -accel tcg,tb-size=512 \
     -cpu pentium3,+sse \
@@ -36,7 +39,7 @@ exec qemu-system-i386 \
     -drive file="$DISK",format=qcow2,if=virtio,cache=none,discard=unmap,aio=native \
     -cdrom "$ISO" \
     -boot d \
-    -vga virtio \
+    -device VGA,x-resolution=${WIDTH},y-resolution=${HEIGHT} \
     -display none \
     -vnc :0 \
     -device virtio-net-pci,netdev=net0 \
