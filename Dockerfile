@@ -10,12 +10,8 @@ RUN apt-get update && apt-get install -y \
     websockify \
     python3-numpy \
     wget \
-    git \
+    spice-html5 \
     && rm -rf /var/lib/apt/lists/*
-
-RUN git clone --depth 1 --branch v1.4.0 https://github.com/novnc/noVNC.git /opt/noVNC && \
-    git clone --depth 1 --branch v0.12.0 https://github.com/novnc/websockify.git /opt/noVNC/utils/websockify && \
-    cp /opt/noVNC/vnc_lite.html /opt/noVNC/index.html
 
 WORKDIR /opt
 

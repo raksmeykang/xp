@@ -5,9 +5,6 @@ DISK="/storage/disk.qcow2"
 ISO="/storage/xp.iso"
 RAM="${RAM_SIZE:-512}"
 CPU="${CPU_CORES:-1}"
-RES="${RESOLUTION:-1024x768}"
-WIDTH="${RES%%x*}"
-HEIGHT="${RES##*x}"
 
 echo "=== Windows XP on ARM64 (QEMU x86 emulation) ==="
 
@@ -29,7 +26,7 @@ if [ ! -f "$DISK" ]; then
     qemu-img create -f qcow2 "$DISK" "${DISK_SIZE:-16G}"
 fi
 
-# Start QEMU
+# Start QEMU with SPICE (display + audio)
 echo "Starting QEMU x86 emulation..."
 exec qemu-system-i386 \
     -accel tcg,tb-size=1024,thread=multi \
@@ -41,7 +38,9 @@ exec qemu-system-i386 \
     -boot d \
     -vga std \
     -display none \
-    -vnc :0 \
+    -spice port=5930,disable-ticketing=on \
+    -soundhw ac97 \
+    -audiodev spice,id=audio0 \
     -device e1000,netdev=net0 \
     -netdev user,id=net0,hostfwd=tcp::3389-:3389 \
     -usb \
