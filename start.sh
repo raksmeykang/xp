@@ -32,7 +32,7 @@ fi
 # Start QEMU
 echo "Starting QEMU x86 emulation..."
 exec qemu-system-i386 \
-    -accel tcg,tb-size=512 \
+    -accel tcg,tb-size=1024,thread=multi \
     -cpu pentium3,+sse \
     -smp ${CPU} \
     -m ${RAM} \
