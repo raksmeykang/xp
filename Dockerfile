@@ -7,10 +7,14 @@ RUN apt-get update && apt-get install -y \
     qemu-system-x86 \
     qemu-utils \
     supervisor \
-    novnc \
     websockify \
+    python3-numpy \
     wget \
+    git \
     && rm -rf /var/lib/apt/lists/*
+
+RUN git clone --depth 1 https://github.com/novnc/noVNC.git /opt/noVNC && \
+    git clone --depth 1 https://github.com/novnc/websockify.git /opt/noVNC/utils/websockify
 
 WORKDIR /opt
 
