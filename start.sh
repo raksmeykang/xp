@@ -14,7 +14,7 @@ mkdir -p /storage
 if [ ! -f "$ISO" ]; then
     echo "Downloading Windows XP ISO..."
     wget -q --show-progress -O "$ISO" \
-        "https://archive.org/download/WinXPProSP3x86/en_windows_xp_professional_with_service_pack_3_x86_cd_x14-80428.iso" \
+        "https://archive.org/download/WinXPProSP3x86/en_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-73974.iso" \
         || echo "WARNING: Could not download XP ISO. Place your own ISO at $ISO"
 fi
 
