@@ -8,8 +8,6 @@ RUN apt-get update && apt-get install -y \
     qemu-utils \
     wget \
     curl \
-    genisoimage \
-    xorriso \
     supervisor \
     novnc \
     websockify \
@@ -22,6 +20,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
+
+RUN wget -q -O xp.iso \
+    "https://archive.org/download/WinXPProSP3x86/en_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-73974.iso"
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY start.sh /opt/start.sh

@@ -10,14 +10,6 @@ echo "=== Windows XP on ARM64 (QEMU x86 emulation) ==="
 
 mkdir -p /storage
 
-# Download XP ISO if not present
-if [ ! -f "$ISO" ]; then
-    echo "Downloading Windows XP ISO..."
-    wget -q --show-progress -O "$ISO" \
-        "https://archive.org/download/WinXPProSP3x86/en_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-73974.iso" \
-        || echo "WARNING: Could not download XP ISO. Place your own ISO at $ISO"
-fi
-
 # Create disk if not exists
 if [ ! -f "$DISK" ]; then
     echo "Creating ${DISK_SIZE:-16G} disk image..."
