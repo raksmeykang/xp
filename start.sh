@@ -8,6 +8,8 @@ CPU="${CPU_CORES:-1}"
 
 echo "=== Windows XP on ARM64 (QEMU x86 emulation) ==="
 
+mkdir -p /storage
+
 # Download XP ISO if not present
 if [ ! -f "$ISO" ]; then
     echo "Downloading Windows XP ISO..."
@@ -29,7 +31,6 @@ exec qemu-system-i386 \
     -cpu pentium3,+sse \
     -smp ${CPU} \
     -m ${RAM} \
-    -machine pc,accel=tcg \
     -drive file="$DISK",format=qcow2,if=virtio,cache=none,discard=unmap,aio=native \
     -cdrom "$ISO" \
     -boot d \
