@@ -26,6 +26,16 @@ if [ ! -f "$DISK" ]; then
     qemu-img create -f qcow2 "$DISK" "${DISK_SIZE:-16G}"
 fi
 
+# Decide boot order: empty disk → boot CD, disk with data → boot HDD
+DISK_FILE_SIZE=$(stat -c%s "$DISK" 2>/dev/null || echo 0)
+if [ "$DISK_FILE_SIZE" -lt 10000000 ]; then
+    echo "Disk empty — booting from CD to install XP..."
+    BOOT="-boot d"
+else
+    echo "Disk has data — booting from HDD..."
+    BOOT="-boot c"
+fi
+
 # Start QEMU
 echo "Starting QEMU x86 emulation..."
 exec qemu-system-i386 \
@@ -35,7 +45,7 @@ exec qemu-system-i386 \
     -m ${RAM} \
     -hda "$DISK" \
     -cdrom "$ISO" \
-    -boot once d \
+    ${BOOT} \
     -vga std \
     -display none \
     -vnc :0 \
